@@ -78,3 +78,23 @@ VALUES  (1000, 'Bird Club', 2019, 'Summer', 'U13', 1, '18 Nov 2018'),
         (1001, 'Funky Brain Club', 2020, 'Summer', 'U21', 2, '9 Aug 2019'),
         (1002, 'Laser Club', 2020, 'Winter', 'U8', 1, '7 Sep 2019'),
         (1003, 'Laser Club', 2020, 'Winter', 'U8', 1, '5 Feb 2020');
+
+SELECT P.PlayerId, P.FName, P.LName, P.Phone, C.ClubName, C.ContactName, PR.SeasonYear, PR.SeasonName, TE.AgeGroup, TE.TeamNumber
+FROM PLAYER P
+INNER JOIN PLAYERREGISTRATION PR
+ON P.PlayerId = PR.PlayerId
+INNER JOIN TEAMENTRY TE
+ON PR.ClubName = TE.ClubName AND PR.SeasonYear = TE.SeasonYear AND PR.SeasonName = TE.SeasonName AND PR.AgeGroup = TE.AgeGroup AND PR.TeamNumber = TE.TeamNumber
+INNER JOIN CLUB C
+ON C.ClubName = TE.ClubName
+ORDER BY P.PlayerId asc;
+
+SELECT SeasonYear, AgeGroup, Count(*) AS "Number of Player"
+FROM PLAYERREGISTRATION
+GROUP BY SeasonYear, AgeGroup
+ORDER BY SeasonYear, AgeGroup ASC
+
+SELECT *
+FROM PLAYERREGISTRATION
+WHERE PlayerId >    (SELECT AVG(PlayerId)
+                    FROM PLAYERREGISTRATION);
