@@ -18,7 +18,7 @@ CREATE TABLE SEASON (
 );
 
 CREATE TABLE PLAYER (
-    PlayerId    INT,
+    PlayerId    INT IDENTITY(1000, 1),
     FName       NVARCHAR(100) NOT NULL,
     LName       NVARCHAR(100) NOT NULL,
     Phone       NVARCHAR(50),
@@ -47,4 +47,34 @@ CREATE TABLE PLAYERREGISTRATION (
     PRIMARY KEY (PlayerId, ClubName, SeasonYear, SeasonName, AgeGroup, TeamNumber),
     FOREIGN KEY (PlayerId) references PLAYER,
     FOREIGN KEY (ClubName, SeasonYear, SeasonName, AgeGroup, TeamNumber) references TEAMENTRY
-)
+);
+
+INSERT INTO CLUB (ClubName, ContactName)
+VALUES  ('Bird Club', 'Rosella Dawson'),
+        ('Laser Club', 'Mike Dingle'),
+        ('Funky Brain Club', 'Zali Spurgeon'),
+        ('Coffee Club', 'Scary Dude');
+
+INSERT INTO SEASON (SeasonYear, SeasonName)
+VALUES  (2019, 'Summer'),
+        (2019, 'Winter'),
+        (2020, 'Summer'),
+        (2020, 'Winter');
+
+INSERT INTO PLAYER (FName, LName, Phone)
+VALUES  ('Bicycle', 'Johnson', '0499 764 982'),
+        ('Peter', 'Jackson', '0473 739 373'),
+        ('Simile', 'Peters', '0493 429 298'),
+        ('Maia', 'Warren', '0468 455 872');
+
+INSERT INTO TEAMENTRY (ClubName, SeasonYear, SeasonName, AgeGroup, TeamNumber)
+VALUES  ('Bird Club', 2019, 'Summer', 'U13', 1),
+        ('Laser Club', 2020, 'Winter', 'U8', 1),
+        ('Funky Brain Club', 2020, 'Summer', 'U21', 1),
+        ('Funky Brain Club', 2020, 'Summer', 'U21', 2);
+
+INSERT INTO PLAYERREGISTRATION (PlayerId, ClubName, SeasonYear, SeasonName, AgeGroup, TeamNumber, DataRegistered)
+VALUES  (1000, 'Bird Club', 2019, 'Summer', 'U13', 1, '18 Nov 2018'),
+        (1001, 'Funky Brain Club', 2020, 'Summer', 'U21', 2, '9 Aug 2019'),
+        (1002, 'Laser Club', 2020, 'Winter', 'U8', 1, '7 Sep 2019'),
+        (1003, 'Laser Club', 2020, 'Winter', 'U8', 1, '5 Feb 2020');
